@@ -246,6 +246,7 @@ void admin_menu()
 	cout << "\n\tPress 6 to GO BACK TO MAIN MENU";
 	cout << "\n\t-----------------------------------------";
 
+
 	cout << "\n\n\tOption: ";
 	cin >> option;
 	switch (option)
