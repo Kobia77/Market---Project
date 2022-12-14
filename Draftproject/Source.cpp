@@ -185,13 +185,19 @@ void product_menu()
 	fp.close();
 }
 
-
+int Charityforstupidos(int total)
+{
+	total += 10;
+	cout << "\n\n10 Shekels charge for charity :)" << endl;
+	return total;
+}
 
 void place_order()
 {
 	int order_arr[50], quan[50], c = 0;
 	float amt, damt, total = 0;
 	char ch = 'Y';
+	char donate;
 	product_menu();
 	cout << "\n------------------------------------------------";
 	cout << "\n PLACE YOUR ORDER";
@@ -205,6 +211,8 @@ void place_order()
 		cout << "\nDo You Want To Order Another Product ? (y/n)";
 		cin >> ch;
 	} while (ch == 'y' || ch == 'Y');
+	cout << "Do you want to donate 10 Shekels for charity? (y/n)"<<endl;
+	cin >> donate;
 	cout << "\n\nThank You...";
 	getchar();
 	system("cls");
@@ -227,6 +235,11 @@ void place_order()
 		}
 		fp.close();
 	}
+	if (donate == 'Y' || donate == 'y')
+		total = Charityforstupidos(total);
+	else
+		cout << "\n\nThank you anyways :)" << endl;
+	
 	cout << "\n\n\t\t\t\t\tTOTAL = " << total;
 	getchar();
 }
