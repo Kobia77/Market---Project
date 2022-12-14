@@ -209,6 +209,7 @@ void place_order()
 	getchar();
 	system("cls");
 	cout << "\n\n--------------INVOICE-----------------------\n";
+	cout << "\n\n--------------Kobi-----------------------\n";
 	cout << "\nPr No.\tPr Name\tQuantity \tPrice \tAmount \tAmount after discount\n";
 	for (int x = 0; x <= c; x++)
 	{
