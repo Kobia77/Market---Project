@@ -1,3 +1,5 @@
 ﻿  Source.cpp
-C:\Users\kobia\source\repos\YEAR 1 SEM 2\Draftproject\Draftproject\Source.cpp(132,17): warning C4309: 'initializing': truncation of constant value
-  Draftproject.vcxproj -> C:\Users\kobia\source\repos\YEAR 1 SEM 2\Draftproject\x64\Debug\Draftproject.exe
+C:\Users\kobia\source\repos\YEAR 1 SEM 2\Project\Market---Project\Draftproject\Source.cpp(132,17): warning C4309: 'initializing': truncation of constant value
+C:\Users\kobia\source\repos\YEAR 1 SEM 2\Project\Market---Project\Draftproject\Source.cpp(239,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\kobia\source\repos\YEAR 1 SEM 2\Project\Market---Project\Draftproject\Source.cpp(239,29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Draftproject.vcxproj -> C:\Users\kobia\source\repos\YEAR 1 SEM 2\Project\Market---Project\x64\Debug\Draftproject.exe
