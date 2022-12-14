@@ -185,7 +185,7 @@ void product_menu()
 	fp.close();
 }
 
-int Charityforstupidos(int total)
+int Charityfunc(int total)
 {
 	total += 10;
 	cout << "\n\n10 Shekels charge for charity :)" << endl;
@@ -236,7 +236,7 @@ void place_order()
 		fp.close();
 	}
 	if (donate == 'Y' || donate == 'y')
-		total = Charityforstupidos(total);
+		total = Charityfunc(total);
 	else
 		cout << "\n\nThank you anyways :)" << endl;
 	
