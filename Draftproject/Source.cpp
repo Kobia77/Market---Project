@@ -114,7 +114,7 @@ void display_record(int num)
 
 void edit_product()
 {
-	cout << "hey";
+	
 	int num;
 	bool found = false;
 	system("cls");
