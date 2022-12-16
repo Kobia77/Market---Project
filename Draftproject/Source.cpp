@@ -62,7 +62,6 @@ public:
 fstream fp;
 product pro;
 
-
 void save_product()
 {
 	fp.open("database.dat", ios::out | ios::app);
@@ -115,6 +114,7 @@ void display_record(int num)
 
 void edit_product()
 {
+	
 	int num;
 	bool found = false;
 	system("cls");
