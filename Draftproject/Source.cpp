@@ -194,7 +194,6 @@ int Charityfunc(int total)
 
 void place_order()
 {
-	cout << "hhh";
 	int order_arr[50], quan[50], c = 0;
 	float amt, damt, total = 0;
 	char ch = 'Y';
