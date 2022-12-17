@@ -208,37 +208,20 @@ float discount_func(int total)
 
 void show_all_discount()
 {
-
-    system("cls");
     cout << endl << "\t\t-------------------------------------------";
-    cout << endl << "\t\t.Today's Dicounts";
+    cout << endl << "\t\t* Today's Discounts *";
     cout << endl << "\t\t------------------------------------------\n";
     fp.open("database.dat", ios::in);
 
-
     while (fp.read((char*)&pro, sizeof(product)))
     {
-
         if (pro.getDiscount() > 0)
         {
-
             cout << endl << "Product Name: " << pro.getName();
-            cout << endl << "Discount :" << pro.getDiscount() << endl << endl;
-
-
+            cout << endl << "Discount :" << pro.getDiscount() <<"%" <<endl << endl;
         }
-        else
-        {
-            continue;
-
-        }
-
-
-
     }
-
     cout << " **** You have 20% discount for any order above 1000 ILS  ****" << endl;
-
     cout << endl << "------------------------------------------\n" << endl;
     getchar();
     fp.close();
