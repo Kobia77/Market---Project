@@ -206,7 +206,43 @@ float discount_func(int total)
         return total;
 }
 
+void show_all_discount()
+{
 
+    system("cls");
+    cout << endl << "\t\t-------------------------------------------";
+    cout << endl << "\t\t.Today's Dicounts";
+    cout << endl << "\t\t------------------------------------------\n";
+    fp.open("database.dat", ios::in);
+
+
+    while (fp.read((char*)&pro, sizeof(product)))
+    {
+
+        if (pro.getDiscount() > 0)
+        {
+
+            cout << endl << "Product Name: " << pro.getName();
+            cout << endl << "Discount :" << pro.getDiscount() << endl << endl;
+
+
+        }
+        else
+        {
+            continue;
+
+        }
+
+
+
+    }
+
+    cout << " **** You have 20% discount for any order above 1000 ILS  ****" << endl;
+
+    cout << endl << "------------------------------------------\n" << endl;
+    getchar();
+    fp.close();
+}
 float coin_change(int total)
 {
     int pick_coin = 0;
@@ -238,6 +274,7 @@ float coin_change(int total)
 
 void place_order()
 {
+
     int order_arr[50], quan[50], c = 0;
     float amt, damt, total = 0;
     char ch = 'Y';
@@ -248,6 +285,7 @@ void place_order()
     cout << "\n------------------------------------------------";
     cout << "\n PLACE YOUR ORDER";
     cout << "\n------------------------------------------------\n";
+    show_all_discount();
     do {
         cout << "\n\nEnter The Product number: ";
         cin >> order_arr[c];
