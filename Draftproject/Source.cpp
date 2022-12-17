@@ -219,6 +219,7 @@ float coin_change(int total)
         cout<<"Price in ILS:"<<total<<endl;
         new_total=total*0.2369;
         return new_total;
+        cout<<"hey";
     }
 
 
