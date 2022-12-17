@@ -55,6 +55,7 @@ public:
 	{
 		return product_discount;
 	}
+
 };
 
 
@@ -192,12 +193,45 @@ int Charityfunc(int total)
 	return total;
 }
 
+
+
+float coin_change(int total)
+{
+    int pick_coin=0;
+    float new_total=0;
+    cout<<"Which coin do want to pay with?"<<endl;
+    cout<<"1.EUR  \n2.USD ($) \n3.GBP \n------pick a number------"<<endl;
+    cin>>pick_coin;
+    if(pick_coin==1){
+        cout<<"Calculate to EUR:\n"<<endl;
+        cout<<"Price in ILS:"<<total<<endl;
+        new_total=total*0.2729;
+        return new_total;
+    }
+    if(pick_coin==2){
+        cout<<"Calculate to USD:\n"<<endl;
+        cout<<"Price in ILS:"<<total<<endl;
+        new_total=total*0.2903;
+        return new_total;
+    }
+    if(pick_coin==3){
+        cout<<"Calculate to GBP:\n"<<endl;
+        cout<<"Price in ILS:"<<total<<endl;
+        new_total=total*0.2369;
+        return new_total;
+    }
+
+
+}
+
 void place_order()
 {
 	int order_arr[50], quan[50], c = 0;
 	float amt, damt, total = 0;
 	char ch = 'Y';
 	char donate;
+    char choice;
+    float New_total;
 	product_menu();
 	cout << "\n------------------------------------------------";
 	cout << "\n PLACE YOUR ORDER";
@@ -208,6 +242,7 @@ void place_order()
 		cout << "\nQuantity: ";
 		cin >> quan[c];
 		c++;
+
 		cout << "\nDo You Want To Order Another Product ? (y/n)";
 		cin >> ch;
 	} while (ch == 'y' || ch == 'Y');
@@ -239,9 +274,27 @@ void place_order()
 		total = Charityfunc(total);
 	else
 		cout << "\n\nThank you anyways :)" << endl;
-	
-	cout << "\n\n\t\t\t\t\tTOTAL = " << total;
-	getchar();
+
+    cout<<"Do you want to pay with another coins? (y/n)"<<endl;
+    cin>>choice;
+
+
+    if(choice == 'Y' || choice == 'y')
+    {
+        New_total=coin_change(total);
+        cout << "\n\n\t\t\t\t\tTOTAL = " << New_total;
+        getchar();
+
+    }
+    else
+    {
+        cout << "\n\n\t\t\t\t\tTOTAL = " << total;
+        getchar();
+    }
+
+
+
+
 }
 
 
