@@ -3,17 +3,33 @@
 #include<string.h>
 #include<iomanip>
 #include<iostream>
-
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
 class product
 {
+    int total_amount;
+    int total_discount;
     int product_number;
     char product_name[50];
     float product_price, product_quantity, tax, product_discount;
 
 public:
+
+    void set_new()
+    {
+
+
+        cout << "Set Today discount !" << endl;
+        cout << "Set the amount you want : " << endl;
+        cin >> total_amount;
+
+        cout << "Enter the discount you want from " << total_discount << ": " << endl;
+        cin >> total_discount;
+    }
+
 
     void create_product()
     {
@@ -56,6 +72,29 @@ public:
         return product_discount;
     }
 
+
+
+    int get_total_Discount()
+    {
+        return total_discount;
+    }
+
+    void set_discount(int dis)
+    {
+        total_discount = dis;
+
+    }
+    int get_total_amount()
+    {
+        return total_amount;
+    }
+    void set_total_amount(int amount)
+    {
+        total_amount = amount;
+
+
+    }
+
 };
 
 
@@ -70,6 +109,20 @@ void save_product()
     fp.write((char*)&pro, sizeof(product));
     fp.close();
     cout << endl << endl << "The Product Has Been Sucessfully Created...";
+    getchar();
+}
+
+
+void Discount_total()
+{
+
+    fp.open("database.dat", ios::out | ios::app);
+
+    pro.set_new();
+    fp.write((char*)&pro, sizeof(product));
+    fp.close();
+
+    cout << endl << endl << "The details Has Been Sucessfully Updated...";
     getchar();
 }
 
@@ -186,46 +239,55 @@ void product_menu()
     fp.close();
 }
 
-int Charityfunc(int total)
+float Charityfunc(float total)
 {
-    total += 10;
-    cout << "\n\n10 Shekels charge for charity :)" << endl;
+    string tmp;
+    int cha = 0;
+    cout << "\n\nHow much do you want to donate?" << endl;
+    cin >> cha;
+    cout << "\n\nWhich association do you want to donate for? " << endl;
+    cin >> tmp;
+    total += cha;
+    cout << "\n\n" << cha << " Shekels charge for " << tmp << ":)\n" << endl;
     return total;
 }
-float discount_func(int total)
+
+float lucky_func(int total)
 {
-    int new_calc;
-    if (total >= 1000)
+    //system("cls");
+    int prize;
+    int pick_choise;
+    cout << "****Lets see how much lucky you have today sir**** \n\n";
+    cout << "Which lucky card are you interested in?" << endl << "(1)*regular* ticket= 10 ILS" << endl << "(2)**special ticket** = 50 ILS" << "(3)else: Return Menu" << endl;
+    cin >> pick_choise;
+    if (pick_choise == 1)
     {
-        new_calc = total - (total * 20) / 100;
-        return new_calc;
+        total += 10;
+        cout << "You'v been charged 10 [ILS]-----done" << endl;
+        cout << "Regular ticket for you:" << endl << " You may win up to 50 ILS---->lets roll " << endl;
+
+        prize = (rand() % 50);
+        cout << "YOU WON : " << prize << " [ILS]" << endl;
+        total -= prize;
+        return total;
     }
+    if (pick_choise == 2)
+    {
+        total += 50;
+        cout << "You'v been charged 50 [ILS]-----done" << endl;
+        cout << "Special ticket for you:" << endl << "you may win up to 100 ILS---->lets roll " << endl;
 
-
+        prize = (rand() % 100);
+        cout << "YOU WON : " << prize << endl;
+        total -= prize;
+        return total;
+    }
     else
         return total;
+
+
 }
 
-void show_all_discount()
-{
-    cout << endl << "\t\t-------------------------------------------";
-    cout << endl << "\t\t* Today's Discounts *";
-    cout << endl << "\t\t------------------------------------------\n";
-    fp.open("database.dat", ios::in);
-
-    while (fp.read((char*)&pro, sizeof(product)))
-    {
-        if (pro.getDiscount() > 0)
-        {
-            cout << endl << "Product Name: " << pro.getName();
-            cout << endl << "Discount :" << pro.getDiscount() <<"%" <<endl << endl;
-        }
-    }
-    cout << " **** You have 20% discount for any order above 1000 ILS  ****" << endl;
-    cout << endl << "------------------------------------------\n" << endl;
-    getchar();
-    fp.close();
-}
 float coin_change(int total)
 {
     int pick_coin = 0;
@@ -253,23 +315,23 @@ float coin_change(int total)
     }
 
 
+
 }
+
+
 
 void place_order()
 {
-
     int order_arr[50], quan[50], c = 0;
-    float amt, damt, total = 0;
+    float amt, damt, total = 0, New_total;
     char ch = 'Y';
-    char donate;
-    char choice;
-    float New_total;
+    char donate, lucky_pick, choice;
     product_menu();
     cout << "\n------------------------------------------------";
     cout << "\n PLACE YOUR ORDER";
     cout << "\n------------------------------------------------\n";
-    show_all_discount();
-    do {
+    do
+    {
         cout << "\n\nEnter The Product number: ";
         cin >> order_arr[c];
         cout << "\nQuantity: ";
@@ -279,11 +341,19 @@ void place_order()
         cout << "\nDo You Want To Order Another Product ? (y/n)";
         cin >> ch;
     } while (ch == 'y' || ch == 'Y');
-    cout << "Do you want to donate 10 Shekels for charity? (y/n)" << endl;
-    cin >> donate;
-    cout << "\n\nThank You...";
+
+
+
+    cout << "\n\nFeeling lucky for lucky coupons? (y/n)" << endl;
+    cin >> lucky_pick;
+    if (lucky_pick == 'Y' || lucky_pick == 'y')
+        total = lucky_func(total);
+    else
+        cout << "\n\nMaybe next time kido " << endl;
+
+
     getchar();
-    system("cls");
+    //system("cls");
     cout << "\n\n--------------INVOICE-----------------------\n";
     cout << "\nPr No.\tPr Name\tQuantity \tPrice \tAmount \tAmount after discount\n";
     for (int x = 0; x <= c; x++)
@@ -303,34 +373,60 @@ void place_order()
         }
         fp.close();
     }
+    cout << "\n\nDo you want to donate for charity? (y/n)" << endl;
+    cin >> donate;
     if (donate == 'Y' || donate == 'y')
         total = Charityfunc(total);
     else
         cout << "\n\nThank you anyways :)" << endl;
 
-
-    cout << "Do you want to pay with another coins? (y/n)" << endl;
+    cout << "\n\nDo you want to pay with another coins? (y/n)" << endl;
     cin >> choice;
 
 
-    int dis;
+
     if (choice == 'Y' || choice == 'y')
     {
-        dis = discount_func(total);
-        New_total = coin_change(dis);
-        cout << "\n\n\t\t\t\t\tTOTAL = " << New_total;
+
+        if (pro.get_total_amount() <= total)
+        {
+            cout << "You have the terms for the discount !!!" << endl;
+            float percentege = 0;
+            percentege = (total * pro.get_total_Discount()) / 100;
+            total -= percentege;
+            cout << "\n\n\t\t\t\t\tTOTAL = " << total << endl;
+
+
+        }
+        else
+        {
+            cout << "You are not have the terms to get the discount !" << endl;
+        }
+
+        New_total = coin_change(total);
+        cout << "\n\n\t\t\t\t\tTOTAL = " << New_total << endl;
         getchar();
 
     }
     else
     {
-        dis = discount_func(total);
-        cout << "\n\n\t\t\t\t\tTOTAL = " << dis;
-        getchar();
+
+        if (pro.get_total_amount() <= total)
+        {
+            cout << "You have the terms for the discount !!!" << endl;
+            float percentege = 0;
+            percentege = (total * pro.get_total_Discount()) / 100;
+            total -= percentege;
+            cout << "\n\n\t\t\t\t\tTOTAL = " << total;
+
+        }
+        else
+        {
+            cout << "You are not have the terms to get the discount !" << endl;
+
+        }
+
     }
-
-
-
 
 }
 
@@ -346,7 +442,8 @@ void admin_menu()
     cout << "\n\tPress 3 to QUERY ";
     cout << "\n\tPress 4 to MODIFY PRODUCT";
     cout << "\n\tPress 5 to DELETE PRODUCT";
-    cout << "\n\tPress 6 to GO BACK TO MAIN MENU";
+    cout << "\n\tPress 6 to Set Today discounts ";
+    cout << "\n\tPress 7 to GO BACK TO MAIN MENU";
     cout << "\n\t-----------------------------------------";
 
 
@@ -375,7 +472,11 @@ void admin_menu()
         case 5: delete_product();
             break;
 
-        case 6: system("cls");
+        case 6:
+            Discount_total();
+
+
+        case 7: system("cls");
             break;
 
         default:admin_menu();
